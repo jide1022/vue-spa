@@ -8,9 +8,16 @@ module.exports = merge(baseConfig, {
   mode: 'development',
   // 开发服务器
   devServer: {
+    host: "0.0.0.0",
+    hot: true,
+    port: 8080,
+    open: true,
+    inline: true,
     index: "index.html",
+    noInfo: false,
     publicPath: "/",
   },
+  devtool: 'source-map',
   module: {
     // 配置loader
     rules: []

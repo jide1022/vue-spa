@@ -21,7 +21,11 @@ export default {
 
   methods: {
     async clickHandle() {
+      if (false) {
+        console.log(111);
+      }
       let res = await new Promise((reslove, reject) => {
+        debugger;
         reslove(this.test);
       });
       console.log(res);

@@ -15,7 +15,7 @@ module.exports = {
     // 绝对路径
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
-    chunkFilename: "chunk-[name].[chunkhash].js"
+    chunkFilename: "static/js/chunk-[name].[chunkhash].js"
   },
   resolve: {
     // alias提供别名 在import 和 require 模块时进行对应查找
@@ -32,11 +32,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["vue-style-loader", "css-loader"]
+        use: ["vue-style-loader", {
+          loader: 'css-loader',
+          options: { importLoaders: 1 }
+        }, 'postcss-loader']
       },
       {
         test: /\.less$/,
-        use: ["vue-style-loader", "css-loader", "less-loader"]
+        use: ["vue-style-loader", {
+          loader: 'css-loader',
+          options: { importLoaders: 1 }
+        }, 'postcss-loader', "less-loader"]
       },
       {
         test: /\.js$/,
@@ -54,6 +60,13 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: '/static/fonts/[name].[ext]',
+        },
       }
     ]
   },

@@ -17,8 +17,11 @@ export default {
   mounted() {},
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .hello {
   font-size: 50px;
+  color: red;
+  box-sizing: border-box;
+  display: flex;
 }
 </style>
