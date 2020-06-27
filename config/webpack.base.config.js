@@ -1,13 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const webpack = require("webpack")
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const webpack = require("webpack");
 
-console.log(__dirname);
-console.log(path.resolve('src'));
 module.exports = {
-  // 模式
-  mode: 'development',
   // 入口文件
   entry: {
     main: './src/main.js'
@@ -16,9 +13,9 @@ module.exports = {
   output: {
     filename: '[name].js',
     // 绝对路径
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/',
-    chunkFilename: "[name][hash].js"
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
+    chunkFilename: "chunk-[name].[chunkhash].js"
   },
   resolve: {
     // alias提供别名 在import 和 require 模块时进行对应查找
@@ -26,11 +23,6 @@ module.exports = {
       '@': path.resolve('src'),
       'vue': "vue/dist/vue.esm.js"
     }
-  },
-  // 开发服务器
-  devServer: {
-    index: "index.html",
-    publicPath: "/",
   },
   module: {
     // 配置loader
@@ -48,6 +40,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: ["babel-loader"]
       },
       {
@@ -66,9 +59,8 @@ module.exports = {
   },
   // 配置插件
   plugins: [
-    new webpack.DefinePlugin({
-
-    }),
+    new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({}),
     new VueLoaderPlugin(),
     // html 承载页面输出
     new HtmlWebpackPlugin({

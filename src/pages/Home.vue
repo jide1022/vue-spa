@@ -3,7 +3,6 @@
 </template>
 
 <script>
-console.log(env);
 export default {
   name: "Home",
   components: {},
